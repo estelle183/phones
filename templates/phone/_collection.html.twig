@@ -1,0 +1,42 @@
+
+{% block _phone_idNumbers_widget %}
+    <p>Ajouter des IMEI</p>
+
+    {{ form_widget(form) }}
+
+
+    <input type="hidden" id="widgets-counter" value="0">
+
+    <div class="form-group">
+        <button type="button" id="add-imei" class="btn btn-primary">Ajouter un IMEI</button>
+    </div>
+
+{% endblock %}
+
+    {% block _phone_idNumbers_entry_row %}
+        {{ form_widget(form) }}
+    {% endblock %}
+
+    {% block _phone_idNumbers_entry_widget %}
+        <div class="form-group" id="block_{{ id }}">
+            <div class="row">
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col">
+                            {{ form_widget(form.imei) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="button" data-action="delete" data-target="#block_{{ id }}" class="btn btn-danger">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+
+
+
+
+
+

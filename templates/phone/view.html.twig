@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Infos Modèle{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+            <div class="col-3 homeButton">
+                <a class="btn btn-lg btn-warning" role="button" href="{{ path('phone_edit', {id: phone.id}) }}">Modifier</a>
+            </div>
+            <div class="col-3 homeButton">
+                <a class="btn btn-lg btn-danger" role="button" href="{{ path('phone_remove', {id: phone.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce modèle ?')">Supprimer</a>
+            </div>
+            <div class="col-3 homeButton" >
+                <a class="btn btn-lg btn-primary"  href="{{path('phone_index')}}">Retour</a>
+            </div>
+        </div>
+    </div>
+<div class="container col-4 mt-5">
+<div class="card mb-3">
+    <h3 class="card-header">Marque : {{ phone.brand }}</h3>
+    <div class="card-body">
+        <h5 class="card-title">Modèle : {{ phone.model }}</h5>
+        <h6 class="card-subtitle text-muted">Année de création : {{ phone.year }}</h6>
+    </div>
+
+    <div class="card-body">
+        <p class="card-text">Description : <br/> {{ phone.description }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Valeur de stock :  {% if ( phone.stock > phone.stockLimit ) %}
+                <span style="color:green">{{ phone.stock }}</span>
+            {% else %}
+                <span style="color:red">{{ phone.stock }}</span>
+            {% endif %}</li>
+        <li class="list-group-item">Date de mise à jour des données : {{ phone.updatedat|date('d-m-Y') }}</li>
+    </ul>
+
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">IMEI rattaché(s)</h4>
+        <ul class="list-group list-group-flush">
+            {% for idNumber in phone.idNumbers %}
+                <li class="list-group-item">{{ idNumber.imei }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</div>
+
+{% endblock %}

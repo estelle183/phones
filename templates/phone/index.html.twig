@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des modèles{% endblock %}
+
+
+{% block body %}
+
+        <div class="container mt-5">
+            <div class="col" style='text-align: end'>
+                <a class="btn btn-lg btn-primary mb-3" role="button" href="{{path('phone_create')}}">Créer un modèle</a>
+            </div>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
+            <div class="row">
+                <table class="table table-striped mt-5">
+                    <thead>
+                    <tr>
+                        <th>Marque</th>
+                        <th>Modèle</th>
+                        <th>Année</th>
+                        <th>Valeur de Stock</th>
+                        <th>Date de mise à jour</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for phone in phones %}
+                        {% if phone.active != false %}
+                        <tr>
+                            <td>{{ phone.brand }}</td>
+                            <td>{{ phone.model }}</td>
+                            <td>{{ phone.year }}</td>
+                            {% if ( phone.stock > phone.stockLimit ) %}
+                            <td style="color:green">{{ phone.stock }}</td>
+                            {% else %}
+                                <td style="color:red">{{ phone.stock }}</td>
+                                {% endif %}
+                            <td>{{ phone.updatedat|date('d-m-Y') }}</td>
+                            <td><a href="{{ path('phone_view', {id: phone.id}) }}" class="btn btn-secondary">Voir</a></td>
+
+
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
